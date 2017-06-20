@@ -9,7 +9,7 @@ import SearchList from '../containers/iplaySearchList';
 
 const MainPage = ({navigator}) => (
   <Page renderToolbar={() => <NavBar title='場館搜尋' navigator={navigator} />}>
-    <SearchList />
+    <SearchList navigator={navigator}/>
   </Page>
 );
 

@@ -1,3 +1,9 @@
 www
 platforms
 plugins
+actions
+api
+components
+containers
+reducers
+index.js

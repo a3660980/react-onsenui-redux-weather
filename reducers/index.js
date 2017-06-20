@@ -1,12 +1,10 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux-immutable';
 import selectedLocation from './selectedLocation';
-import locations from './locations';
+import iplay from './iplay';
 import dialog from './dialog';
 
 const todoApp = combineReducers({
-  locations,
-  selectedLocation,
-  dialog
+  iplay,
 });
 
 export default todoApp;

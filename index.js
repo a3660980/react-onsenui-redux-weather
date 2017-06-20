@@ -6,6 +6,8 @@ import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import {AppContainer} from 'react-hot-loader';
+import Immutable from 'immutable';
+
 
 import weatherApp from './reducers';
 import App from './components/App';
@@ -17,25 +19,16 @@ import 'onsenui/css/onsenui.css';
 import './stylus/index.styl';
 
 const logger = createLogger();
+const initialState = Immutable.Map();
 
-const store = createStore(weatherApp,
-  window.devToolsExtension ? window.devToolsExtension() : f => f,
-  process.env.NODE_ENV === 'production'
-    ? applyMiddleware(thunk)
-    : applyMiddleware(thunk, logger)
+const store = createStore(
+  weatherApp,
+  initialState,
+  applyMiddleware(
+      thunk,
+      createLogger({ stateTransformer: state => state.toJS() })
+  )
 );
-
-import {addLocationAndFetchWeather} from './actions';
-
-[
-  'Tokyo',
-  'New York',
-  'London',
-  'Beijing',
-  'Sydney',
-  'Rio de Janeiro',
-  'Istanbul'
-].forEach((city) => store.dispatch(addLocationAndFetchWeather(city)));
 
 const rootElement = document.getElementById('root');
 

@@ -5,13 +5,11 @@ import {
 } from 'react-onsenui';
 
 import NavBar from './NavBar';
-import LocationList from '../containers/LocationList';
-import AddLocation from '../containers/AddLocation';
+import SearchList from '../containers/iplaySearchList';
 
 const MainPage = ({navigator}) => (
-  <Page renderToolbar={() => <NavBar title='Onsen Weather' navigator={navigator} />}>
-    <LocationList navigator={navigator} />
-    <AddLocation />
+  <Page renderToolbar={() => <NavBar title='場館搜尋' navigator={navigator} />}>
+    <SearchList />
   </Page>
 );
 

@@ -150,19 +150,19 @@ const GymSearchHearder = (props) => {
 
       <select style={{flex:1}} id="GymKindID" name="GymKindID" onChange={gymIDChange}>
         <option value="">全部設施類型</option>
-        <option class="MultiFunction" value="綜合性場館">綜合性場館</option>
-        <option class="BallSport" value="球類運動">球類運動</option>
-        <option class="AquaticSport" value="水上活動">水上活動</option>
-        <option class="OutdoorSport" value="戶外運動">戶外運動</option>
-        <option class="KungfuSport" value="技擊類">技擊類</option>
-        <option class="GymnasticsSport" value="伸展運動/舞蹈">伸展運動/舞蹈</option>
-        <option class="RacingSport" value="競速運動">競速運動</option>
-        <option class="ShootingSport" value="射擊運動">射擊運動</option>
-        <option class="IceSport" value="冰上運動">冰上運動</option>
-        <option class="Adventure" value="冒險性運動">冒險性運動</option>
-        <option class="FitnessSport" value="健身房運動">健身房運動</option>
-        <option class="SpecificSport" value="身心障礙/銀髮族運動">身心障礙/銀髮族運動</option>
-        <option class="OtherSport" value="其他">其他</option>
+        <option  value="綜合性場館">綜合性場館</option>
+        <option  value="球類運動">球類運動</option>
+        <option  value="水上活動">水上活動</option>
+        <option  value="戶外運動">戶外運動</option>
+        <option  value="技擊類">技擊類</option>
+        <option  value="伸展運動/舞蹈">伸展運動/舞蹈</option>
+        <option  value="競速運動">競速運動</option>
+        <option  value="射擊運動">射擊運動</option>
+        <option value="冰上運動">冰上運動</option>
+        <option  value="冒險性運動">冒險性運動</option>
+        <option  value="健身房運動">健身房運動</option>
+        <option  value="身心障礙/銀髮族運動">身心障礙/銀髮族運動</option>
+        <option  value="其他">其他</option>
     </select>
   	
   	<select style={{flex:1}} id="GymType" name="GymType"  onChange={props.onChange}>

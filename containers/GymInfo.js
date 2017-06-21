@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import $ from "jquery";
 import { platform } from 'onsenui';
 import { getGymById } from '../actions'
 import {
@@ -67,6 +67,17 @@ class GymInfo extends React.Component {
 
   componentWillMount() {
      this.props.getGymById(this.props.GymID)
+}
+
+  componentDidUpdate() {
+    if(this.props.isFetching===true){
+      let latlng = new google.maps.LatLng(this.props.gym.Lat, this.props.gym.Lng);
+      let map = new google.maps.Map(this.refs.map, {
+      center: latlng,
+      zoom: 16
+    });
+    let marker = new google.maps.Marker({position: latlng, map: map, title: this.props.gym.Name});
+    }
   }
 
   render() {
@@ -76,7 +87,7 @@ class GymInfo extends React.Component {
         <Page renderToolbar={() => <NavBar backButton={true} title={`${gym.Name}`} navigator={this.props.navigator} />}>
             {this.props.isFetching===true ?
                 <div style={styles.main}>
-                    <div sytle={{flex:1}}>
+                    <div style={{flex:1}}>
                         <img src={gym.Photo1Url} style={{height:200, marginBottom:30}}/>
                     </div>
                     <div style={{background:'#52c7c3', margin:5}}>場地介紹</div>
@@ -103,6 +114,13 @@ class GymInfo extends React.Component {
                      <div style={{background:'#52c7c3', margin:5}}>賽事經歷</div>
                      <div style={{textAlign:'left', paddingLeft:30}}>
                       {gym.Contest}
+                    </div>
+                    <div style={{background:'#52c7c3', margin:5}}>交通資訊</div>
+                    <div style={{alignItems:'center',padding:20}}>
+                      <div ref='map' style={{width:'90vw', height:300}}></div>
+                    </div>
+                    <div style={{textAlign:'left', paddingLeft:30, paddingRight:30}}>
+                      {gym.PublicTransport}
                     </div>
                 </div>
             :

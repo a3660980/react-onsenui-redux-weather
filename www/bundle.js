@@ -62885,7 +62885,11 @@
 	          Latitude: lat,
 	          Longitude: lng
 	        });
-	      }).then(this.props.getPos());
+	      }).then(this.props.getPos()).catch(this.props.getGymList({
+	        City: '高雄市',
+	        Latitude: this.props.lat,
+	        Longitude: this.props.lng
+	      }));
 	    }
 	  }, {
 	    key: 'selectCity',
@@ -63141,7 +63145,7 @@
 	    geolocation.getCurrentPosition(function (position) {
 	      resolve(position);
 	    }, function (error) {
-	      reject(console.log(error));
+	      //reject (console.log(error));
 	    });
 	  });
 	  return location;
@@ -73732,67 +73736,67 @@
 	      ),
 	      _react2.default.createElement(
 	        'option',
-	        { 'class': 'MultiFunction', value: '\u7D9C\u5408\u6027\u5834\u9928' },
+	        { value: '\u7D9C\u5408\u6027\u5834\u9928' },
 	        '\u7D9C\u5408\u6027\u5834\u9928'
 	      ),
 	      _react2.default.createElement(
 	        'option',
-	        { 'class': 'BallSport', value: '\u7403\u985E\u904B\u52D5' },
+	        { value: '\u7403\u985E\u904B\u52D5' },
 	        '\u7403\u985E\u904B\u52D5'
 	      ),
 	      _react2.default.createElement(
 	        'option',
-	        { 'class': 'AquaticSport', value: '\u6C34\u4E0A\u6D3B\u52D5' },
+	        { value: '\u6C34\u4E0A\u6D3B\u52D5' },
 	        '\u6C34\u4E0A\u6D3B\u52D5'
 	      ),
 	      _react2.default.createElement(
 	        'option',
-	        { 'class': 'OutdoorSport', value: '\u6236\u5916\u904B\u52D5' },
+	        { value: '\u6236\u5916\u904B\u52D5' },
 	        '\u6236\u5916\u904B\u52D5'
 	      ),
 	      _react2.default.createElement(
 	        'option',
-	        { 'class': 'KungfuSport', value: '\u6280\u64CA\u985E' },
+	        { value: '\u6280\u64CA\u985E' },
 	        '\u6280\u64CA\u985E'
 	      ),
 	      _react2.default.createElement(
 	        'option',
-	        { 'class': 'GymnasticsSport', value: '\u4F38\u5C55\u904B\u52D5/\u821E\u8E48' },
+	        { value: '\u4F38\u5C55\u904B\u52D5/\u821E\u8E48' },
 	        '\u4F38\u5C55\u904B\u52D5/\u821E\u8E48'
 	      ),
 	      _react2.default.createElement(
 	        'option',
-	        { 'class': 'RacingSport', value: '\u7AF6\u901F\u904B\u52D5' },
+	        { value: '\u7AF6\u901F\u904B\u52D5' },
 	        '\u7AF6\u901F\u904B\u52D5'
 	      ),
 	      _react2.default.createElement(
 	        'option',
-	        { 'class': 'ShootingSport', value: '\u5C04\u64CA\u904B\u52D5' },
+	        { value: '\u5C04\u64CA\u904B\u52D5' },
 	        '\u5C04\u64CA\u904B\u52D5'
 	      ),
 	      _react2.default.createElement(
 	        'option',
-	        { 'class': 'IceSport', value: '\u51B0\u4E0A\u904B\u52D5' },
+	        { value: '\u51B0\u4E0A\u904B\u52D5' },
 	        '\u51B0\u4E0A\u904B\u52D5'
 	      ),
 	      _react2.default.createElement(
 	        'option',
-	        { 'class': 'Adventure', value: '\u5192\u96AA\u6027\u904B\u52D5' },
+	        { value: '\u5192\u96AA\u6027\u904B\u52D5' },
 	        '\u5192\u96AA\u6027\u904B\u52D5'
 	      ),
 	      _react2.default.createElement(
 	        'option',
-	        { 'class': 'FitnessSport', value: '\u5065\u8EAB\u623F\u904B\u52D5' },
+	        { value: '\u5065\u8EAB\u623F\u904B\u52D5' },
 	        '\u5065\u8EAB\u623F\u904B\u52D5'
 	      ),
 	      _react2.default.createElement(
 	        'option',
-	        { 'class': 'SpecificSport', value: '\u8EAB\u5FC3\u969C\u7919/\u9280\u9AEE\u65CF\u904B\u52D5' },
+	        { value: '\u8EAB\u5FC3\u969C\u7919/\u9280\u9AEE\u65CF\u904B\u52D5' },
 	        '\u8EAB\u5FC3\u969C\u7919/\u9280\u9AEE\u65CF\u904B\u52D5'
 	      ),
 	      _react2.default.createElement(
 	        'option',
-	        { 'class': 'OtherSport', value: '\u5176\u4ED6' },
+	        { value: '\u5176\u4ED6' },
 	        '\u5176\u4ED6'
 	      )
 	    ),
@@ -73827,6 +73831,10 @@
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _reactRedux = __webpack_require__(167);
+	
+	var _jquery = __webpack_require__(313);
+	
+	var _jquery2 = _interopRequireDefault(_jquery);
 	
 	var _onsenui = __webpack_require__(305);
 	
@@ -73910,11 +73918,23 @@
 	      this.props.getGymById(this.props.GymID);
 	    }
 	  }, {
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate() {
+	      if (this.props.isFetching === true) {
+	        var latlng = new google.maps.LatLng(this.props.gym.Lat, this.props.gym.Lng);
+	        var map = new google.maps.Map(this.refs.map, {
+	          center: latlng,
+	          zoom: 16
+	        });
+	        var marker = new google.maps.Marker({ position: latlng, map: map, title: this.props.gym.Name });
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 	
-	      console.log(this.props);
+	      console.log(this.props.gym);
 	      var gym = this.props.gym;
 	      return _react2.default.createElement(
 	        _reactOnsenui.Page,
@@ -73926,10 +73946,77 @@
 	          { style: styles.main },
 	          _react2.default.createElement(
 	            'div',
-	            { sytle: { flex: 1 } },
-	            _react2.default.createElement('img', { src: gym.Photo1Url, style: { height: 200 } })
+	            { style: { flex: 1 } },
+	            _react2.default.createElement('img', { src: gym.Photo1Url, style: { height: 200, marginBottom: 30 } })
 	          ),
-	          gym.Name
+	          _react2.default.createElement(
+	            'div',
+	            { style: { background: '#52c7c3', margin: 5 } },
+	            '\u5834\u5730\u4ECB\u7D39'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { style: { flex: 1, flexDirection: 'column', textAlign: 'left', paddingLeft: 30 } },
+	            _react2.default.createElement(_reactOnsenui.Icon, { icon: 'map-marker', style: { marginRight: 5 } }),
+	            gym.Addr
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { style: { flex: 1, flexDirection: 'column', textAlign: 'left', paddingLeft: 30 } },
+	            _react2.default.createElement(_reactOnsenui.Icon, { icon: 'phone', style: { marginRight: 5 } }),
+	            gym.OperationTel
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { style: { flex: 1, flexDirection: 'column', textAlign: 'left', paddingLeft: 30 } },
+	            _react2.default.createElement(_reactOnsenui.Icon, { icon: 'info-circle', style: { marginRight: 5 } }),
+	            _react2.default.createElement(
+	              'a',
+	              { href: gym.WebUrl },
+	              gym.WebUrl
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { style: { flex: 1, flexDirection: 'column', textAlign: 'left', paddingLeft: 30 } },
+	            _react2.default.createElement(_reactOnsenui.Icon, { icon: 'cogs', style: { marginRight: 5 } }),
+	            gym.GymType
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { style: { background: '#52c7c3', margin: 5 } },
+	            '\u5834\u5730\u7C21\u4ECB'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { style: { textAlign: 'left', paddingLeft: 30 } },
+	            gym.Introduction
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { style: { background: '#52c7c3', margin: 5 } },
+	            '\u8CFD\u4E8B\u7D93\u6B77'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { style: { textAlign: 'left', paddingLeft: 30 } },
+	            gym.Contest
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { style: { background: '#52c7c3', margin: 5 } },
+	            '\u4EA4\u901A\u8CC7\u8A0A'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { style: { alignItems: 'center', padding: 20 } },
+	            _react2.default.createElement('div', { ref: 'map', style: { width: '90vw', height: 300 } })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { style: { textAlign: 'left', paddingLeft: 30, paddingRight: 30 } },
+	            gym.PublicTransport
+	          )
 	        ) : _react2.default.createElement(
 	          'div',
 	          { style: { textAlign: 'center', alignItems: 'center' } },

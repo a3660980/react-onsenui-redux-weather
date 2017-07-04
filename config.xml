@@ -22,9 +22,9 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <hook src="scripts/build.sh" type="before_prepare" />
+    <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-geolocation" spec="^2.4.3">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="cordova-plugin-whitelist" spec="1" />
-    <engine name="ios" spec="~4.4.0" />
 </widget>
